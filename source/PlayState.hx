@@ -7,33 +7,39 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 
-/**
- * A FlxState which can be used for the actual gameplay.
- */
 class PlayState extends FlxState
 {
-  /**
-   * Function that is called up when to state is created to set it up. 
-   */
+  var player = new FlxSprite();
+  var SPEED : Float = 50;
+
   override public function create():Void
   {
     super.create();
+    player.loadGraphic("assets/images/Hero.png");
+    player.x = 200;
+    player.y = 200;
+    add(player);
   }
 
-  /**
-   * Function that is called when this state is destroyed - you might want to 
-   * consider setting all objects this state uses to null to help garbage collection.
-   */
   override public function destroy():Void
   {
     super.destroy();
   }
 
-  /**
-   * Function that is called once every frame.
-   */
   override public function update():Void
   {
+    if(FlxG.keys.pressed.RIGHT) {
+      player.x += FlxG.elapsed * SPEED;
+    }
+    if(FlxG.keys.pressed.LEFT) {
+      player.x -= FlxG.elapsed * SPEED;
+    }
+    if(FlxG.keys.pressed.DOWN) {
+      player.y += FlxG.elapsed * SPEED;
+    }
+    if(FlxG.keys.pressed.UP) {
+      player.y -= FlxG.elapsed * SPEED;
+    }
     super.update();
   }	
 }
