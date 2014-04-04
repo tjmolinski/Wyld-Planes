@@ -39,6 +39,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/images/images-go-here.txt", __ASSET__assets_images_images_go_here_txt);
 		type.set ("assets/images/images-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/images/Hero.png", __ASSET__assets_images_hero_png);
+		type.set ("assets/images/Hero.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/data/data-goes-here.txt", __ASSET__assets_data_data_goes_here_txt);
 		type.set ("assets/data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/music/music-goes-here.txt", __ASSET__assets_music_music_goes_here_txt);
@@ -50,6 +52,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#elseif html5
 		
 		addExternal("assets/images/images-go-here.txt", "text", "assets/images/images-go-here.txt");
+		addExternal("assets/images/Hero.png", "image", "assets/images/Hero.png");
 		addExternal("assets/data/data-goes-here.txt", "text", "assets/data/data-goes-here.txt");
 		addExternal("assets/music/music-goes-here.txt", "text", "assets/music/music-goes-here.txt");
 		addExternal("assets/sounds/sounds-go-here.txt", "text", "assets/sounds/sounds-go-here.txt");
@@ -619,12 +622,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 #elseif flash
 
 @:keep class __ASSET__assets_images_images_go_here_txt extends null { }
+@:keep class __ASSET__assets_images_hero_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_data_data_goes_here_txt extends null { }
 @:keep class __ASSET__assets_music_music_goes_here_txt extends null { }
 @:keep class __ASSET__assets_sounds_sounds_go_here_txt extends null { }
 
 
 #elseif html5
+
 
 
 
