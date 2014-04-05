@@ -10,6 +10,7 @@ import flixel.util.FlxMath;
 class PlayState extends FlxState
 {
   var player = new FlxSprite();
+  var block = new FlxSprite();
   var SPEED : Float = 50;
 
   override public function create():Void
@@ -18,7 +19,11 @@ class PlayState extends FlxState
     player.loadGraphic("assets/images/Hero.png");
     player.x = 200;
     player.y = 200;
+	block.loadGraphic("assets/images/Hero.png");
+	block.x = 400;
+	block.y = 200;
     add(player);
+	add(block);
   }
 
   override public function destroy():Void
@@ -40,6 +45,9 @@ class PlayState extends FlxState
     if(FlxG.keys.pressed.UP) {
       player.y -= FlxG.elapsed * SPEED;
     }
+	
+	FlxG.collide();
+	
     super.update();
   }	
 }
