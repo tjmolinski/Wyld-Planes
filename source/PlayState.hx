@@ -11,7 +11,12 @@ class PlayState extends FlxState
 {
   var player = new FlxSprite();
   var block = new FlxSprite();
-  var SPEED : Float = 50;
+  var speed : Float = 0;
+  var acceleration : Float = 20;
+  var speedDecay : Float = 0.99;
+  var rotationStep : Float = 30;
+  var maxSpeed : Float = 20;
+  var backSpeed : Float = 10;
 
   override public function create():Void
   {
@@ -33,21 +38,32 @@ class PlayState extends FlxState
 
   override public function update():Void
   {
-    if(FlxG.keys.pressed.RIGHT) {
-      player.x += FlxG.elapsed * SPEED;
+    if(speed > 0.2) {
+      speed *= speedDecay;
+    } else {
+      speed = 0;
     }
-    if(FlxG.keys.pressed.LEFT) {
-      player.x -= FlxG.elapsed * SPEED;
+
+    if(FlxG.keys.pressed.RIGHT && speed > 0.1) {
+      player.angle += rotationStep * speed * FlxG.elapsed;
+    }
+    if(FlxG.keys.pressed.LEFT && speed > 0.1) {
+      player.angle -= rotationStep * speed * FlxG.elapsed;
     }
     if(FlxG.keys.pressed.DOWN) {
-      player.y += FlxG.elapsed * SPEED;
+      speed -= backSpeed * FlxG.elapsed;
     }
-    if(FlxG.keys.pressed.UP) {
-      player.y -= FlxG.elapsed * SPEED;
+    if(FlxG.keys.pressed.UP && speed < maxSpeed) {
+      speed += acceleration * FlxG.elapsed;
     }
-	
-	FlxG.collide();
-	
+
+    var speedX : Float = Math.sin(player.angle*(Math.PI/180))*speed;
+    var speedY : Float = Math.cos(player.angle*(Math.PI/180))*speed * -1;
+
+    player.x += speedX;
+    player.y += speedY;
+
+    FlxG.collide();
     super.update();
   }	
 }
