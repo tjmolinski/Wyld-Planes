@@ -11,12 +11,16 @@ class MenuState extends FlxState
 {
   override public function create():Void
   {
+	FlxG.mouse.visible = false;  
+	  
     var logo = new FlxSprite();
     logo.loadGraphic("assets/images/logo.png");
     logo.x = 200;
     logo.y = 200;
     add(logo);
+	
     add(new FlxText(0, 0, 100, "Press Enter To Start"));
+	
     super.create();
   }
 
