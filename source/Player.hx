@@ -10,10 +10,10 @@ import flixel.FlxSprite;
 class Player extends FlxSprite
 {	
 	var speed : Float = 0;
-	var accel : Float = 20;
+	var accel : Float = 15;
 	var speedDecay : Float = 0.99;
-	var rotationStep : Float = 30;
-	var maxSpeed : Float = 20;
+	var rotationStep : Float = 60;
+	var maxSpeed : Float = 5;
 	var backSpeed : Float = 10;
 
 	public function new(X : Float, Y : Float) 

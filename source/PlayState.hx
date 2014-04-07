@@ -6,23 +6,32 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.util.FlxColor;
+import flixel.group.FlxGroup;
 
 class PlayState extends FlxState
 {
   var block = new FlxSprite();
   var player : Player;
+  private var walls : FlxGroup;
+  
+  private var bottomWall : FlxSprite;
 
   override public function create():Void
   {
     super.create(); 
 	
+	walls = new FlxGroup();
+	
+	bottomWall = new FlxSprite(0, 400);
+	bottomWall.makeGraphic(1000, 100, FlxColor.SALMON);
+	bottomWall.immovable = true;
+	walls.add(bottomWall);
+	
 	player = new Player(200, 200);
 	
-	block.loadGraphic("assets/images/Hero.png");
-	block.x = 400;
-	block.y = 200;
-	add(block);
 	add(player);
+	add(walls);
   }
 
   override public function destroy():Void
