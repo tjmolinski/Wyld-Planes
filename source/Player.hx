@@ -10,11 +10,12 @@ import flixel.FlxSprite;
 class Player extends FlxSprite
 {	
 	var speed : Float = 0;
+	var velX : Float = 0;
+	var velY : Float = 0;
 	var accel : Float = 15;
-	var speedDecay : Float = 0.99;
+	var speedDecay : Float = 0.995;
 	var rotationStep : Float = 60;
 	var maxSpeed : Float = 5;
-	var backSpeed : Float = 10;
 
 	public function new(X : Float, Y : Float) 
 	{
@@ -46,7 +47,7 @@ class Player extends FlxSprite
 		  angle -= rotationStep * speed * FlxG.elapsed;
 		}
 		if(FlxG.keys.pressed.DOWN) {
-		  speed -= backSpeed * FlxG.elapsed;
+		  //maybe a slowdown here
 		}
 		if(FlxG.keys.pressed.UP && speed < maxSpeed) {
 		  speed += accel * FlxG.elapsed;
@@ -54,6 +55,15 @@ class Player extends FlxSprite
 
 		var speedX : Float = Math.sin(angle*(Math.PI/180))*speed;
 		var speedY : Float = Math.cos(angle*(Math.PI/180))*speed * -1;
+
+		if (speed < 2) {
+		  if (velY < maxSpeed) {
+		    velY += 2 * FlxG.elapsed;
+		  }
+		} else {
+		  velY = 0;
+		}
+		speedY += velY;
 
 		x += speedX;
 		y += speedY;
