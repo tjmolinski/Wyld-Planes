@@ -14,9 +14,9 @@ class MenuState extends FlxState
 	FlxG.mouse.visible = false;  
 	  
     var logo = new FlxSprite();
-    logo.loadGraphic("assets/images/logo.png");
-    logo.x = 200;
-    logo.y = 200;
+    logo.loadGraphic("assets/images/WyldStagzLogo.jpg");
+    logo.x = 0;
+    logo.y = 0;
     add(logo);
 	
     add(new FlxText(0, 0, 100, "Press Enter To Start"));
