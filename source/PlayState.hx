@@ -23,8 +23,8 @@ class PlayState extends FlxState
 	
 	walls = new FlxGroup();
 	
-	bottomWall = new FlxSprite(0, 400);
-	bottomWall.makeGraphic(1000, 100, FlxColor.SALMON);
+	bottomWall = new FlxSprite(0, 500);
+	bottomWall.makeGraphic(1000, 200, FlxColor.SALMON);
 	bottomWall.immovable = true;
 	walls.add(bottomWall);
 	
