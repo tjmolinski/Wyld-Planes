@@ -28,7 +28,7 @@ class PlayState extends FlxState
 	bottomWall.immovable = true;
 	walls.add(bottomWall);
 	
-	player = new Player(200, 200);
+	player = new Player(0, 200);
 	
 	add(player);
 	add(walls);

@@ -13,7 +13,8 @@ class Player extends FlxSprite
 	var velX : Float = 0;
 	var velY : Float = 0;
 	var accel : Float = 15;
-	var speedDecay : Float = 0.995;
+	var deccel : Float = 15;
+	var speedDecay : Float = 0.96;
 	var rotationStep : Float = 60;
 	var maxSpeed : Float = 5;
 
@@ -22,6 +23,7 @@ class Player extends FlxSprite
 		super(X, Y);
 		x = X;
 		y = Y;
+		angle = 90;
 		loadGraphic("assets/images/Hero.png");
 	}
 	
@@ -32,11 +34,9 @@ class Player extends FlxSprite
 	
 	override public function update():Void
 	{
-		if (speed > 0.2) 
-		{
+		if (speed > 0.2) {
 		  speed *= speedDecay;
-		} else 
-		{
+		} else {
 		  speed = 0;
 		}
 
@@ -46,8 +46,8 @@ class Player extends FlxSprite
 		if(FlxG.keys.pressed.LEFT && speed > 0.1) {
 		  angle -= rotationStep * speed * FlxG.elapsed;
 		}
-		if(FlxG.keys.pressed.DOWN) {
-		  //maybe a slowdown here
+		if(FlxG.keys.pressed.DOWN && speed > 0) {
+		  speed -= deccel * FlxG.elapsed;
 		}
 		if(FlxG.keys.pressed.UP && speed < maxSpeed) {
 		  speed += accel * FlxG.elapsed;
