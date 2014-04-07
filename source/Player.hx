@@ -35,6 +35,15 @@ class Player extends FlxSprite
 		x = X;
 		y = Y;
 		
+		//Flying speed
+		maxVelocity.x = 200;
+	
+		//Gravity
+		acceleration.y = 400;
+	
+		//Deceleration
+		drag.x = maxVelocity.x * 2;
+		
 		dir_UpRight = dir_Right | dir_Up;
 		dir_DownRight = dir_Right | dir_Down;
 		dir_UpLeft = dir_Left | dir_Up;
@@ -53,48 +62,68 @@ class Player extends FlxSprite
 	}
 	
 	override public function update():Void
-	{
-		velocity.x = 0;
-		velocity.y = 0;
+	{		
 		direction = 0;
 		pastDirection = direction;
 		
 		var x_direction : Int = 0;
 		var y_direction : Int = 0;
+		
+		acceleration.x = 0;
 						
-		if (FlxG.keys.pressed.RIGHT && velocity.x < max_speed)
+		if (FlxG.keys.pressed.RIGHT)
 		{
+			//Going right
 			direction = dir_Right;
+			//Set x direction
 			x_direction = direction;
-			velocity.x += _acceleration;
+			//Since moving in direction, don't drag plane down
+			velocity.y = 0;
+			//Move plane faster
+			acceleration.x += drag.x;
 		}
-		if (FlxG.keys.pressed.LEFT && velocity.x < max_speed)
+		if (FlxG.keys.pressed.LEFT)
 		{
+			//Going left
 			direction = dir_Left;
+			//Going left, set that direction
 			x_direction = direction;
-			velocity.x += -_acceleration;
+			//Since moving in direction, don't drag plane down
+			velocity.y = 0;
+			//Move plane faster
+			acceleration.x -= drag.x;
 		}
 		if (FlxG.keys.pressed.UP)
 		{
+			//Only move up while pressing direction.
 			if (direction != 0)
 			{
+				//Set direction to up
 				direction = dir_Up;
+				//Set y direction to up
 				y_direction = direction;
-				velocity.y = -_acceleration;
+				//Set the y velocity correctly to up
+				velocity.y = -acceleration.y/2;
 			}
 		}
 		if (FlxG.keys.pressed.DOWN)
 		{
+			//Only move down while pressing button
 			if (direction != 0)
 			{
+				//Set direction to down.
 				direction = dir_Down;
+				//Set the y direction to down
 				y_direction = direction;
-				velocity.y = _acceleration;	
+				//set the y velocity correctly to down
+				velocity.y = acceleration.y/2;	
 			}
 		}
 		
+		//OR the two directions together
 		direction = x_direction | y_direction;
 		
+		//Set proper angle
 		if(direction == dir_Right)
 			angle = 90;
 		else if(direction == dir_Left)
@@ -106,8 +135,9 @@ class Player extends FlxSprite
 		else if (direction == dir_UpLeft)
 			angle = 315;
 		else if (direction == dir_DownLeft)
-			angle = 225;
+			angle = 225;				
 		
+		//Update parent class.
 		super.update();
 	}	
 }
