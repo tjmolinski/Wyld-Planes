@@ -14,7 +14,7 @@ class Player extends FlxSprite
 	var velY : Float = 0;
 	var accel : Float = 15;
 	var deccel : Float = 15;
-	var speedDecay : Float = 0.96;
+	var speedDecay : Float = 0.995;
 	var rotationStep : Float = 60;
 	var maxSpeed : Float = 5;
 
