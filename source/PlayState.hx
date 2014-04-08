@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -16,6 +17,7 @@ class PlayState extends FlxState
   private var walls : FlxGroup;
   
   private var bottomWall : FlxSprite;
+  private var debugText : FlxText;
 
   override public function create():Void
   {
@@ -28,10 +30,12 @@ class PlayState extends FlxState
 	bottomWall.immovable = true;
 	walls.add(bottomWall);
 	
-	player = new Player(0, 200);
+	player = new Player(0, 400);
+	debugText = new FlxText(0,0,200, "Test");
 	
 	add(player);
 	add(walls);
+	add(debugText);
   }
 
   override public function destroy():Void
@@ -41,7 +45,8 @@ class PlayState extends FlxState
 
   override public function update():Void
   {
-    FlxG.collide();
+    FlxG.collide(null, null, player.forceFun);
+    debugText.text = player.speed + "";
     super.update();
   }	
 }
