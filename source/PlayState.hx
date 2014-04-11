@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -28,7 +29,7 @@ class PlayState extends FlxState
 	bottomWall.immovable = true;
 	walls.add(bottomWall);
 	
-	player = new Player(200, 200);
+	player = new Player(0, 400);
 	
 	add(player);
 	add(walls);

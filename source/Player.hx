@@ -3,10 +3,6 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 
-/**
- * ...
- * @author Brian
- */
 class Player extends FlxSprite
 {	
 	//Direction
