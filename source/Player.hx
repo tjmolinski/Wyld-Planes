@@ -2,6 +2,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.FlxState;
 
 class Player extends FlxSprite
 {	
@@ -11,7 +12,7 @@ class Player extends FlxSprite
   var accel : Float = 2;
   var deccel : Float = 2;
   var speedDecay : Float = 0.995;
-  var rotationStep : Float = 0.5;
+  var rotationStep : Float = 1;
   var maxSpeed : Float = 300;
   var onGround : Bool = false;
   public var forceFun : Dynamic -> Dynamic -> Void;
@@ -22,7 +23,7 @@ class Player extends FlxSprite
     x = X;
     y = Y;
     angle = 90;
-    loadGraphic("assets/images/Hero.png");
+    loadGraphic("assets/images/Hero.png", false, false, 10, 10, false);
     forceFun = force;
   }
 
@@ -51,9 +52,16 @@ class Player extends FlxSprite
     if(FlxG.keys.pressed.UP && speed < maxSpeed) {
       speed += accel;
     }
-
     var speedX : Float = Math.sin(angle*(Math.PI/180))*speed;
     var speedY : Float = Math.cos(angle*(Math.PI/180))*speed * -1;
+
+    if(FlxG.keys.pressed.SPACE) {
+      var playerState : PlayState = cast(FlxG.state, PlayState);
+      var bullet : FlxSprite = cast(playerState.bullets.recycle(), FlxSprite);
+      bullet.reset(x, y);
+      bullet.velocity.x = speedX;
+      bullet.velocity.y = speedY;
+    }
 
     if (speed < 100) {
       if (velY < maxSpeed) {
