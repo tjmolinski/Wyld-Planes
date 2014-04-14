@@ -26,12 +26,12 @@ class PlayState extends FlxState
     super.create(); 
 	
 	walls = new FlxGroup();
-	var numOfBullets : Int = 20;
+	var numOfBullets : Int = 175;
 	bullets = new FlxGroup(numOfBullets);
 	var bulletSprite : FlxSprite;
 	for(i in 0...numOfBullets) {
 	  bulletSprite = new FlxSprite(-200, -200);
-	  bulletSprite.makeGraphic(2, 8);
+	  bulletSprite.makeGraphic(4, 4);
 	  bulletSprite.exists = false;
 	  bullets.add(bulletSprite);
 	}
