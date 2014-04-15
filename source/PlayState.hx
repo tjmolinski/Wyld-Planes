@@ -14,40 +14,38 @@ import flash.system.System;
 class PlayState extends FlxState
 {
   var block = new FlxSprite();
-  var player : Player;
   private var walls : FlxGroup;
   public var bullets : FlxGroup;
-  
+  public var players : FlxGroup;
+
   private var bottomWall : FlxSprite;
-  private var debugText : FlxText;
 
   override public function create():Void
   {
     super.create(); 
-	
-	walls = new FlxGroup();
-	var numOfBullets : Int = 175;
-	bullets = new FlxGroup(numOfBullets);
-	var bulletSprite : FlxSprite;
-	for(i in 0...numOfBullets) {
-	  bulletSprite = new FlxSprite(-200, -200);
-	  bulletSprite.makeGraphic(4, 4);
-	  bulletSprite.exists = false;
-	  bullets.add(bulletSprite);
-	}
-	add(bullets);
-	
-	bottomWall = new FlxSprite(0, 700);
-	bottomWall.makeGraphic(1768, 100, FlxColor.SALMON);
-	bottomWall.immovable = true;
-	walls.add(bottomWall);
-	
-	player = new Player(0, 690);
-	debugText = new FlxText(0,0,200, "Test");
-	
-	add(player);
-	add(walls);
-	add(debugText);
+
+    walls = new FlxGroup();
+    var numOfBullets : Int = 175;
+    bullets = new FlxGroup(numOfBullets);
+    var bulletSprite : FlxSprite;
+    for(i in 0...numOfBullets) {
+      bulletSprite = new FlxSprite(-200, -200);
+      bulletSprite.makeGraphic(4, 4);
+      bulletSprite.exists = false;
+      bullets.add(bulletSprite);
+    }
+    add(bullets);
+
+    players = new FlxGroup(2);
+    players.add(new Player(0, 0, 690));
+    players.add(new Player(1, 1356, 690));
+    add(players);
+
+    bottomWall = new FlxSprite(0, 700);
+    bottomWall.makeGraphic(1768, 100, FlxColor.SALMON);
+    bottomWall.immovable = true;
+    walls.add(bottomWall);
+    add(walls);
   }
 
   override public function destroy():Void
@@ -60,8 +58,7 @@ class PlayState extends FlxState
     if(FlxG.keys.pressed.ESCAPE) {
       System.exit(0);
     }
-    FlxG.collide(null, null, player.forceFun);
-    debugText.text = player.speed + "";
+    FlxG.collide();
     super.update();
   }	
 }

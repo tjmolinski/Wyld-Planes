@@ -19,12 +19,12 @@ class Player extends FlxSprite
   var onGround : Bool = false;
   public var forceFun : Dynamic -> Dynamic -> Void;
 
-  public function new(X : Float, Y : Float) 
+  public function new(id : Int, X : Float, Y : Float) 
   {
     super(X, Y);
     x = X;
     y = Y;
-    angle = 90;
+    angle = id == 0 ? 90: -90;
     loadGraphic("assets/images/Hero.png", false, false, 10, 10, false);
     forceFun = force;
   }
