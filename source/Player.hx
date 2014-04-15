@@ -17,6 +17,7 @@ class Player extends FlxSprite
   var rotationStep : Float = 1;
   var maxSpeed : Float = 300;
   var onGround : Bool = false;
+  var controls : Controls;
   public var forceFun : Dynamic -> Dynamic -> Void;
 
   public function new(id : Int, X : Float, Y : Float) 
@@ -27,6 +28,7 @@ class Player extends FlxSprite
     angle = id == 0 ? 90: -90;
     loadGraphic("assets/images/Hero.png", false, false, 10, 10, false);
     forceFun = force;
+    controls = new Controls(id);
   }
 
   override public function destroy():Void 
@@ -42,16 +44,16 @@ class Player extends FlxSprite
       speed = 0;
     }
 
-    if(FlxG.keys.pressed.RIGHT) {
+    if(controls.pressingTurnRight()) {
       angle += (rotationStep * speed) * FlxG.elapsed;
     }
-    if(FlxG.keys.pressed.LEFT) {
+    if(controls.pressingTurnLeft()) {
       angle -= (rotationStep * speed) * FlxG.elapsed;
     }
-    if(FlxG.keys.pressed.DOWN && speed > 0) {
+    if(controls.pressingDeccel() && speed > 0) {
       speed -= deccel;
     }
-    if(FlxG.keys.pressed.UP && speed < maxSpeed) {
+    if(controls.pressingAccel() && speed < maxSpeed) {
       speed += accel;
     }
 
@@ -60,7 +62,7 @@ class Player extends FlxSprite
     var speedX : Float = xRad*speed;
     var speedY : Float = yRad*speed;
 
-    if(FlxG.keys.pressed.SPACE) {
+    if(controls.pressingAction()) {
       var playerState : PlayState = cast(FlxG.state, PlayState);
       var bullet : FlxSprite = cast(playerState.bullets.recycle(), FlxSprite);
       bullet.reset(x+(width/2)-2, y+(height/2)-2); 
