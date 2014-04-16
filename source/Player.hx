@@ -24,7 +24,7 @@ class Player extends FlxSprite {
     y = newY;
     angle = newId == 0 ? 90: -90; //Little hack to have players face each other
     loadGraphic("assets/images/Hero.png", false, false, 10, 10, false);
-    controls = new Controls(id); //Instantiate a controller object for the player
+    controls = getPlayerController(newId); //Instantiate a controller object for the player
   }
 
   override public function destroy():Void {
@@ -86,5 +86,18 @@ class Player extends FlxSprite {
     //Apply the velocity to the bullet
     bullet.velocity.x = xRad * bulletSpeed;
     bullet.velocity.y = yRad * bulletSpeed;
+  }
+
+  //There must be a better place for this...
+  private function getPlayerController(playerId : Int) : Controls {
+    switch(playerId) {
+      case 0:
+	return (new PlayerOneControls());
+      case 1:
+	return (new PlayerTwoControls());
+    }
+
+    //Return empty controls
+    return new Controls();
   }
 }
