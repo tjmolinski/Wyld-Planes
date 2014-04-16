@@ -11,7 +11,7 @@ class MenuState extends FlxState
 {
   override public function create():Void
   {
-	FlxG.mouse.visible = false;  
+    FlxG.mouse.visible = false;  
 	  
     var logo = new FlxSprite();
     logo.loadGraphic("assets/images/WyldStagzLogo.jpg");
