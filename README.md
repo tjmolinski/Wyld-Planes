@@ -1,4 +1,4 @@
-Wyld-Stagz
+Wyld-Planes
 ==========
 
 Plane flying prototype
